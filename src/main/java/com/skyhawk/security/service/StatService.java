@@ -6,12 +6,14 @@ import com.skyhawk.security.model.PlayerStat;
 import com.skyhawk.security.model.StatSummary;
 import com.skyhawk.security.repository.InMemoryStatRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class StatService {
     private final InMemoryStatRepository repository;
 
@@ -30,6 +32,7 @@ public class StatService {
                 request.getMinutesPlayed()
         );
         repository.save(stat);
+        log.info("Logged stats for player {}", request.getPlayerId());
     }
 
     public AggregatedStatResponse getPlayerAggregate(String playerId) {
